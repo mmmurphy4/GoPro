@@ -1,15 +1,25 @@
 #!/usr/bin/python
 
 import sys
+import re
 
 def wc(filename):
 	words, chars, lines = 0, 0, 0
 	pwords, pchars, plines = 0, 0, 0
+	articles, sections = 0, 0
+	print articles
 	with open(filename) as f:
-		print f
 		for line in f:
-			print line
+			# print line
 			num_words = line.split()
+			r=re.match('Article (\d).', line, 0)
+			if r:
+				print line
+				artnum = r.groups()[0]
+				articles+=1
+			if re.match('Section \d', line, 0):
+				print line
+				sections+=1
 			for word in num_words:
 				if word not in wordlist:
 					pwords += 1
@@ -23,6 +33,8 @@ def wc(filename):
 
 		print('all: {}   {}   {}   ' + filename).format(lines, words, chars)
 		print('proper: {}   {}   {}   ').format(lines, pwords, pchars)
+		print('Total Article {}').format(articles)
+		print('Total Section {}').format(sections)
 
 
 if __name__ == "__main__":
