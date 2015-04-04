@@ -7,19 +7,19 @@ def wc(filename):
 	words, chars, lines = 0, 0, 0
 	pwords, pchars, plines = 0, 0, 0
 	articles, sections = 0, 0
-	print articles
+	subarticles=[]
+	subarticles.append(0)
 	with open(filename) as f:
 		for line in f:
-			# print line
 			num_words = line.split()
 			r=re.match('Article (\d).', line, 0)
 			if r:
-				print line
-				artnum = r.groups()[0]
+				artnum = int(r.groups()[0])
 				articles+=1
+				subarticles.append(0)
 			if re.match('Section \d', line, 0):
-				print line
 				sections+=1
+				subarticles[artnum] += 1
 			for word in num_words:
 				if word not in wordlist:
 					pwords += 1
@@ -35,6 +35,9 @@ def wc(filename):
 		print('proper: {}   {}   {}   ').format(lines, pwords, pchars)
 		print('Total Article {}').format(articles)
 		print('Total Section {}').format(sections)
+		print('Total Sections per Article:')
+		for i in range(1,articles+1):
+			print('\tArticle {}: {}').format(i, subarticles[i])
 
 
 if __name__ == "__main__":
