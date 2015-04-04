@@ -1,3 +1,4 @@
+```
 output:
 all: 872   7652   45119   constitution.txt
 proper: 872   6020   40868
@@ -11,3 +12,4 @@ Total Sections per Article:
 	Article 5: 0
 	Article 6: 0
 	Article 7: 0
+```
